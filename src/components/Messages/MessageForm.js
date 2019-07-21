@@ -32,6 +32,10 @@ class MessageForm extends Component {
         };
     };
 
+    uploadFile = (file, metadata) => {
+        console.log(metadata)
+    };
+
     sendMessage = () => {
         const { messagesRef } = this.props;
         const { message, channel } = this.state;
@@ -93,7 +97,8 @@ class MessageForm extends Component {
                 </Button.Group>
 
                 <FileModal modal={modal}
-                           closeModal={this.closeModal}/>
+                           closeModal={this.closeModal}
+                           uploadFile={this.uploadFile} />
             </Segment>
         );
     }
