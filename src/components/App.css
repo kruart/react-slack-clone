@@ -6,7 +6,12 @@ html, body, .app {
 
 /* Messages.js */
 .messages {
-    height: 440px;
+    height: 62vh;
+    overflow-y: scroll;
+}
+
+.messages__progress {
+    height: 58vh;
     overflow-y: scroll;
 }
 
