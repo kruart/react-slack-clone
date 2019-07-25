@@ -39,7 +39,6 @@ class Messages extends Component {
         const ref = this.getMessagesRef();
         ref.child((channelId)).on('child_added', snap => {
             loadedMessages.push(snap.val());
-            console.log(snap.val());
             this.setState({
                 messages: loadedMessages,
                 messagesLoading: false
