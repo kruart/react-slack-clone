@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {  Segment, Comment } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { setUserPosts } from "../../actions";
 import firebase from '../../firebase';
 
 import MessagesHeader from "./MessagesHeader";
@@ -47,6 +49,7 @@ class Messages extends Component {
                 messagesLoading: false
             });
             this.countUniqueUsers(loadedMessages);
+            this.countUserPosts(loadedMessages);
         })
     };
 
@@ -65,8 +68,8 @@ class Messages extends Component {
     };
 
     getMessagesRef = () => {
-      const { messagesRef, privateMessagesRef, privateChannel } = this.state;
-      return privateChannel ? privateMessagesRef : messagesRef;
+        const { messagesRef, privateMessagesRef, privateChannel } = this.state;
+        return privateChannel ? privateMessagesRef : messagesRef;
     };
 
     handleStar = () => {
@@ -133,6 +136,22 @@ class Messages extends Component {
         this.setState({ numUniqueUsers });
     };
 
+    countUserPosts = messages => {
+        let userPosts = messages.reduce((acc, msg) => {
+            if (msg.user.name in acc) {
+                acc[msg.user.name].count += 1
+            } else {
+                acc[msg.user.name] = {
+                    avatar: msg.user.avatar,
+                    count: 1
+                }
+            }
+            return acc;
+        }, {});
+
+        this.props.setUserPosts(userPosts);
+    };
+
     displayMessages = messages => {
         return messages.length > 0 && messages.map(message => (
             <Message key={message.timestamp}
@@ -190,4 +209,4 @@ class Messages extends Component {
     }
 }
 
-export default Messages;
+export default connect(null, { setUserPosts })(Messages);
