@@ -8,6 +8,7 @@ import MessagesHeader from "./MessagesHeader";
 import MessageForm from "./MessageForm";
 import Message from "./Message";
 import Typing from "./Typing";
+import Skeleton from "./Skeleton";
 
 class Messages extends Component {
     state = {
@@ -46,7 +47,7 @@ class Messages extends Component {
     }
 
     scrollToBottom = () => {
-      this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
+        this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
     };
 
     addListeners = channelId => {
@@ -230,11 +231,20 @@ class Messages extends Component {
         ))
     };
 
+    displayMessagesSkeleton = loading =>
+        loading ? (
+            <React.Fragment>
+                {[...Array(10)].map((_, i) => (
+                    <Skeleton key={i}/>
+                ))}
+            </React.Fragment>
+        ) : null;
+
     render() {
         // prettier ignore
         const { messagesRef, messages, channel, user, progressBar, numUniqueUsers,
             searchTerm, searchResults, searchLoading, privateChannel, isChannelStarred,
-            typingUsers } = this.state;
+            typingUsers, messagesLoading } = this.state;
 
         return (
             <React.Fragment>
@@ -251,6 +261,7 @@ class Messages extends Component {
 
                 <Segment>
                     <Comment.Group className={progressBar ? 'messages__progress' : 'messages'}>
+                        {this.displayMessagesSkeleton(messagesLoading)}
                         {searchTerm
                             ? this.displayMessages(searchResults)
                             : this.displayMessages(messages)}
