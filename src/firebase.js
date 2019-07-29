@@ -4,13 +4,13 @@ import "firebase/database";
 import "firebase/storage";
 
 var firebaseConfig = {
-    apiKey: "AIzaSyCHurcRB5fQMIR_QJuSwSQJP-k3Xlcl9S8",
-    authDomain: "reactjs-slack-clone.firebaseapp.com",
-    databaseURL: "https://reactjs-slack-clone.firebaseio.com",
-    projectId: "reactjs-slack-clone",
-    storageBucket: "reactjs-slack-clone.appspot.com",
-    messagingSenderId: "23039086711",
-    appId: "1:23039086711:web:7c42eedc82c5508a"
+    apiKey: "API_KEY",
+    authDomain: "AUTH_DOMAIN",
+    databaseURL: "DATABASE_URL",
+    projectId: "PROJECT_ID",
+    storageBucket: "STORAGE_BUCKET",
+    messagingSenderId: "MESSAGING_SENDER_ID",
+    appId: "APP_ID"
 };
 
 firebase.initializeApp(firebaseConfig);
